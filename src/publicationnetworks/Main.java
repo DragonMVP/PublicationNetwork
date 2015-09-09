@@ -19,7 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import javax.script.*;
-import org.jsoup.Connection;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -42,7 +42,7 @@ public class Main {
         Elements TB = doc.select("table");
         Elements TR = TB.select("tr");
 
-        for (int i = 1; i < 10; i++) {
+        for (int i = 10; i < 15; i++) {
 
             Elements TD = TR.get(i).select("td");
 
@@ -95,11 +95,11 @@ public class Main {
 
     public static int getCitations(String URL) throws MalformedURLException, IOException {
 
-        int ready = 0;
+        int TRY = 0;
         //connect to URL 
         URL = buildString(URL);
         URL url = new URL(URL);
-        while (ready<3) {
+        while (TRY<3) {
             try {
                 Document document = Jsoup.connect(url.toString()).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
                         .get();
@@ -112,11 +112,11 @@ public class Main {
                     }
                 }
 
-                ready++;
+                TRY++;
             } catch (Exception E) {
-                System.out.println("Connection Error try: "+ready);
+                System.out.println("Connection Error try: "+TRY);
                 E.printStackTrace();
-                ready++;
+                TRY++;
             }
 
         }//end while
@@ -159,5 +159,8 @@ public class Main {
 
         return scholarLink;
     }
+
+    
+    
 
 }//end Class
