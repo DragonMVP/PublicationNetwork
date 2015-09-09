@@ -16,7 +16,7 @@ public class Paper {
     
     String Journal;
     String Name;
-    ArrayList<Author> Author;
+    ArrayList<String> Author;
     String Year;
     String Vol;
     String Citations;
@@ -42,11 +42,11 @@ public class Paper {
         this.Name = Name;
     }
 
-    public ArrayList<Author> getAuthor() {
+    public ArrayList<String> getAuthor() {
         return Author;
     }
 
-    public void setAuthor(Author Author) {
+    public void setAuthor(String Author) {
         this.Author.add(Author);
     }
 

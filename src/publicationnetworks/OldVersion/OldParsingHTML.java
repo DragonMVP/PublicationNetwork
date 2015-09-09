@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package publicationnetworks;
+package publicationnetworks.OldVersion;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -14,6 +14,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import publicationnetworks.Author;
+import publicationnetworks.Paper;
 
 /**
  *
@@ -67,11 +69,10 @@ public class OldParsingHTML {
         Document doc = Jsoup.parse(document.toString());
         Element content = doc.getElementById("content");
         ArrayList<Paper> Papers = new ArrayList();
-        
+
         //getTag(content.toString());
         Elements insideContent = content.getElementsByClass("publicationCitation");
 
-        
         for (int i = 0; i < insideContent.size(); i++) {//inicio for  
             Paper currentPaper = new Paper();
             //System.out.println("linkText: " + insideContent.get(i).text());            
@@ -79,36 +80,34 @@ public class OldParsingHTML {
             Elements insideTag = insideContent.get(i).getElementsByTag("strong");
             currentPaper.setName(insideTag.get(0).text());
             for (int j = 0; j < ContentSplit.length; j++) {
-                
+
                 Author currentAuthor = new Author();
                 if (ContentSplit[j].length() > 5 && ContentSplit[j].length() < 25) {//is author name                    
                     //clean string  
                     String[] cleanerAuthor = ContentSplit[j].split(Pattern.quote("("));
-                    if (Character.isUpperCase(cleanerAuthor[0].charAt(0))||cleanerAuthor[0].charAt(0)==' ') {
+                    if (Character.isUpperCase(cleanerAuthor[0].charAt(0)) || cleanerAuthor[0].charAt(0) == ' ') {
                         currentAuthor.setName(cleanerAuthor[0]);
-                        currentPaper.setAuthor(currentAuthor);                        
+                        currentPaper.setAuthor(currentAuthor.getName());
                         /*if (currentPaper.getAuthor().isEmpty()) {
-                            System.out.println("Tamaño 0");
-                            currentAuthor.setName(cleanerAuthor[0]);
-                            currentPaper.setAuthor(currentAuthor);
-                        } else {
-                            System.out.println("Validar");
-                            for (int k = 0; k < currentPaper.getAuthor().size(); k++) {
-                                if (!currentPaper.getAuthor().get(k).equals(cleanerAuthor[0])) {
-                                    currentAuthor.setName(cleanerAuthor[0]);
-                                    currentPaper.setAuthor(currentAuthor);
+                         System.out.println("Tamaño 0");
+                         currentAuthor.setName(cleanerAuthor[0]);
+                         currentPaper.setAuthor(currentAuthor);
+                         } else {
+                         System.out.println("Validar");
+                         for (int k = 0; k < currentPaper.getAuthor().size(); k++) {
+                         if (!currentPaper.getAuthor().get(k).equals(cleanerAuthor[0])) {
+                         currentAuthor.setName(cleanerAuthor[0]);
+                         currentPaper.setAuthor(currentAuthor);
 
-                                }
-                            }
+                         }
+                         }
 
-                        }*/
+                         }*/
 
                     }
 
                 }
 
-                
-               
             }//fin for
 
             //to get more specific information
@@ -129,7 +128,7 @@ public class OldParsingHTML {
             System.out.print("Authors: ");
             for (int j = 0; j < Papers.get(i).getAuthor().size(); j++) {
 
-                System.out.print(Papers.get(i).getAuthor().get(j).getName() + ",");
+                System.out.print(Papers.get(i).getAuthor().get(j) + ",");
 
             }
 
@@ -151,7 +150,7 @@ public class OldParsingHTML {
         // System.out.println("Lunk HREF: "+linkHref);
         System.out.println("linkText: " + linkText);
         //  System.out.println("urlAbs: "+urlAbs);
-        A.Name = linkText;
+        A.setName(linkText);
 
         return A;
     }

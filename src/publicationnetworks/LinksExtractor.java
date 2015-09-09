@@ -23,7 +23,7 @@ public class LinksExtractor {//inicio main
     private ArrayList<String>Links;
 
     
-    LinksExtractor(String URL) throws MalformedURLException, IOException{
+    public LinksExtractor(String URL) throws MalformedURLException, IOException{
         Links = new ArrayList();
         URL url = new URL(URL);
         Document document = Jsoup.connect(url.toString()).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
